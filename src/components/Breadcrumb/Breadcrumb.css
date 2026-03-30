@@ -1,0 +1,25 @@
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  padding: 20px 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.breadcrumb a {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .separator {
+  margin: 0 8px;
+  color: var(--color-border);
+}
+
+.breadcrumb .current {
+  color: var(--color-text-muted);
+}

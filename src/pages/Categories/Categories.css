@@ -1,0 +1,24 @@
+/* ---------- Categories Page Grid ---------- */
+.categories-page-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.browse-all-wrapper {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .categories-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .categories-page-grid {
+    grid-template-columns: 1fr;
+  }
+}

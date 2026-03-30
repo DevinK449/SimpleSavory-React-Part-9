@@ -1,0 +1,34 @@
+/* ---------- Mission Card ---------- */
+.mission-card {
+  text-align: center;
+  padding: 36px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition);
+}
+
+.mission-card:hover {
+  transform: translateY(-4px);
+}
+
+.mission-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--color-bg-warm);
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.mission-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+}
+
+.mission-card p {
+  font-size: 0.92rem;
+}
