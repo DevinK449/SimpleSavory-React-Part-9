@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [react()],
   // Update 'base' to match your GitHub repo name for deployment
   // Example: base: '/your-repo-name/'
-  base: '/SimpleSavory-React/',
+  base: '/SimpleSavory-React-Part-9/',
 })
