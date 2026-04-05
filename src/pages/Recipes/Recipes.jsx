@@ -1,15 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import PageHero from '../../components/PageHero/PageHero'
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
-import { recipes, filterCategories } from '../../data/recipes'
+import { filterCategories } from '../../data/recipes'
 import './Recipes.css'
 
+const API_URL = "https://simplesavory-server.onrender.com"
+
 function Recipes() {
+  const [recipes, setRecipes] = useState([])
   const [activeFilter, setActiveFilter] = useState('All')
 
-  const filteredRecipes = activeFilter === 'All' 
-    ? recipes 
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/recipes`)
+        setRecipes(response.data)
+      } catch (error) {
+        console.error("Error fetching recipes:", error)
+      }
+    })()
+  }, [])
+
+  const filteredRecipes = activeFilter === 'All'
+    ? recipes
     : recipes.filter(recipe => recipe.category === activeFilter)
 
   const breadcrumbItems = [

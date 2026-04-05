@@ -1,12 +1,38 @@
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import axios from 'axios'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
-import { recipes } from '../../data/recipes'
 import './RecipeDetail.css'
+
+const API_URL = "https://simplesavory-server.onrender.com"
 
 function RecipeDetail() {
   const { id } = useParams()
-  const recipe = recipes.find(r => r.id === parseInt(id))
-  const baseUrl = import.meta.env.BASE_URL
+  const [recipe, setRecipe] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/recipes/${id}`)
+        setRecipe(response.data)
+      } catch (error) {
+        console.error("Error fetching recipe:", error)
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [id])
+
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="recipe-not-found">
+          <p>Loading recipe...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!recipe) {
     return (
@@ -36,7 +62,7 @@ function RecipeDetail() {
         <div className="container">
           <div className="recipe-detail-header">
             <div className="recipe-detail-img">
-              <img src={`${baseUrl}images/${recipe.image}`} alt={recipe.name} />
+              <img src={`${API_URL}/${recipe.image}`} alt={recipe.name} />
             </div>
             <div className="recipe-detail-info">
               <h1>{recipe.name}</h1>

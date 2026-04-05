@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom'
 import './RecipeCard.css'
 
+const API_URL = "https://simplesavory-server.onrender.com"
+
 function RecipeCard({ recipe }) {
+  const imageSrc = recipe.image.startsWith("images/")
+    ? `${API_URL}/${recipe.image}`
+    : `${import.meta.env.BASE_URL}images/${recipe.image}`
+
   return (
     <Link to={`/recipe/${recipe.id}`} className="recipe-card">
       <div className="recipe-card-img">
-        <img src={`${import.meta.env.BASE_URL}images/${recipe.image}`} alt={recipe.name} />
+        <img src={imageSrc} alt={recipe.name} />
         <span className="recipe-card-time">{recipe.time}</span>
       </div>
       <div className="recipe-card-body">
