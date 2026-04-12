@@ -1,0 +1,259 @@
+/* ── Outer section ── */
+.submit-section {
+  background: var(--color-bg-warm);
+  padding: 80px 0 90px;
+  border-top: 1px solid var(--color-border);
+}
+
+.submit-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Section header ── */
+.submit-header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.submit-header h2 {
+  color: var(--color-primary-dark);
+  margin-bottom: 10px;
+}
+
+.submit-header p {
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── Status banners ── */
+.submit-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.97rem;
+  font-weight: 500;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.submit-banner--success {
+  background: #edf7f1;
+  border: 1.5px solid #6dcf96;
+  color: #1e5c36;
+}
+
+.submit-banner--error {
+  background: #fdf2f2;
+  border: 1.5px solid #f5a5a5;
+  color: #8b1f1f;
+}
+
+.banner-icon {
+  font-size: 1.1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Form card ── */
+.recipe-form {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  padding: 40px 40px 32px;
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Two-column layout ── */
+.form-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Form groups ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group--grow {
+  flex: 1;
+}
+
+.form-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Labels ── */
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.req {
+  color: var(--color-accent-dark);
+}
+
+.rf-optional {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+}
+
+.rf-hint {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+}
+
+/* ── Inputs & selects ── */
+.rf-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: #fff;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+.rf-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.rf-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.1);
+}
+
+.rf-input--err {
+  border-color: #e05252;
+}
+
+.rf-input--err:focus {
+  box-shadow: 0 0 0 3px rgba(224, 82, 82, 0.12);
+}
+
+.rf-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+.rf-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ── Field-level errors ── */
+.rf-err {
+  font-size: 0.82rem;
+  color: #c0392b;
+  font-weight: 500;
+}
+
+/* ── Form footer ── */
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-light);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Submit button ── */
+.rf-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: var(--color-accent-dark);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  letter-spacing: 0.2px;
+}
+
+.rf-submit-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(180, 130, 50, 0.35);
+}
+
+.rf-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .form-two-col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-col + .form-col {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe-form {
+    padding: 28px 20px 24px;
+  }
+
+  .form-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rf-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .submit-section {
+    padding: 50px 0 60px;
+  }
+}

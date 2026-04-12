@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import PageHero from '../../components/PageHero/PageHero'
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
+import AddRecipeForm from '../../components/AddRecipeForm/AddRecipeForm'
 import { filterCategories } from '../../data/recipes'
 import './Recipes.css'
 
@@ -23,6 +24,10 @@ function Recipes() {
     })()
   }, [])
 
+  function handleRecipeAdded(newRecipe) {
+    setRecipes(prev => [...prev, newRecipe])
+  }
+
   const filteredRecipes = activeFilter === 'All'
     ? recipes
     : recipes.filter(recipe => recipe.category === activeFilter)
@@ -34,7 +39,7 @@ function Recipes() {
 
   return (
     <>
-      <PageHero 
+      <PageHero
         title="Recipes"
         description="Discover a variety of delicious and easy-to-follow recipes for every occasion."
         breadcrumbItems={breadcrumbItems}
@@ -69,6 +74,8 @@ function Recipes() {
           </div>
         </div>
       </section>
+
+      <AddRecipeForm onRecipeAdded={handleRecipeAdded} />
     </>
   )
 }
