@@ -1,0 +1,113 @@
+.dd-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 30, 30, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: dd-fade 0.18s ease-out;
+}
+
+@keyframes dd-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.dd-dialog {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 28px 24px;
+  text-align: center;
+  animation: dd-slide 0.2s ease-out;
+}
+
+@keyframes dd-slide { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+.dd-icon {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.dd-dialog h2 {
+  font-family: var(--font-display);
+  color: var(--color-primary-dark);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.dd-dialog p {
+  color: var(--color-text-light);
+  font-size: 0.98rem;
+  margin-bottom: 20px;
+  line-height: 1.55;
+}
+
+.dd-dialog strong { color: var(--color-text); }
+
+.dd-banner {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.dd-banner--success {
+  background: #edf7f1;
+  border: 1.5px solid #6dcf96;
+  color: #1e5c36;
+}
+
+.dd-banner--error {
+  background: #fdf2f2;
+  border: 1.5px solid #f5a5a5;
+  color: #8b1f1f;
+}
+
+.dd-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dd-btn {
+  padding: 11px 22px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1.5px solid transparent;
+  min-width: 130px;
+}
+
+.dd-btn--ghost {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.dd-btn--ghost:hover:not(:disabled) { background: var(--color-border-light); }
+
+.dd-btn--danger {
+  background: #c0392b;
+  color: #fff;
+}
+
+.dd-btn--danger:hover:not(:disabled) {
+  background: #a93226;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(192, 57, 43, 0.3);
+}
+
+.dd-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+  .dd-actions { flex-direction: column-reverse; }
+  .dd-btn { width: 100%; }
+}

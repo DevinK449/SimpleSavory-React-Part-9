@@ -20,6 +20,9 @@ const EMPTY_FORM = {
   instructions: '',
 }
 
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+
 function validate(fields) {
   const errors = {}
 
@@ -50,11 +53,20 @@ function validate(fields) {
   if (instructionLines.length < 1)
     errors.instructions = "Add at least one instruction step."
 
+  if (fields.image) {
+    if (!ALLOWED_IMAGE_TYPES.includes(fields.image.type))
+      errors.image = "Image must be a JPG, PNG, WEBP, or GIF."
+    else if (fields.image.size > MAX_IMAGE_BYTES)
+      errors.image = "Image must be 5 MB or smaller."
+  }
+
   return errors
 }
 
 function AddRecipeForm({ onRecipeAdded }) {
   const [fields, setFields] = useState(EMPTY_FORM)
+  const [image, setImage] = useState(null)
+  const [imagePreview, setImagePreview] = useState('')
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState(null)
   const [serverMessage, setServerMessage] = useState('')
@@ -66,10 +78,23 @@ function AddRecipeForm({ onRecipeAdded }) {
     if (status) setStatus(null)
   }
 
+  function handleImageChange(e) {
+    const file = e.target.files?.[0] || null
+    setImage(file)
+    setImagePreview(file ? URL.createObjectURL(file) : '')
+    if (errors.image) setErrors(prev => ({ ...prev, image: '' }))
+    if (status) setStatus(null)
+  }
+
+  function clearImage() {
+    setImage(null)
+    setImagePreview('')
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
 
-    const validationErrors = validate(fields)
+    const validationErrors = validate({ ...fields, image })
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
@@ -78,24 +103,31 @@ function AddRecipeForm({ onRecipeAdded }) {
     setStatus('sending')
     setServerMessage('')
 
-    const payload = {
-      name: fields.name.trim(),
-      description: fields.description.trim(),
-      longDescription: fields.longDescription.trim() || fields.description.trim(),
-      time: fields.time.trim(),
-      serves: fields.serves.trim(),
-      category: fields.category,
-      ingredients: fields.ingredients.split('\n').map(l => l.trim()).filter(Boolean),
-      instructions: fields.instructions.split('\n').map(l => l.trim()).filter(Boolean),
-    }
+    const formData = new FormData()
+    formData.append('name', fields.name.trim())
+    formData.append('description', fields.description.trim())
+    formData.append('longDescription', fields.longDescription.trim() || fields.description.trim())
+    formData.append('time', fields.time.trim())
+    formData.append('serves', fields.serves.trim())
+    formData.append('category', fields.category)
+    formData.append(
+      'ingredients',
+      JSON.stringify(fields.ingredients.split('\n').map(l => l.trim()).filter(Boolean))
+    )
+    formData.append(
+      'instructions',
+      JSON.stringify(fields.instructions.split('\n').map(l => l.trim()).filter(Boolean))
+    )
+    if (image) formData.append('image', image)
 
     try {
-      const response = await axios.post(`${API_URL}/api/recipes`, payload)
+      const response = await axios.post(`${API_URL}/api/recipes`, formData)
       if (response.status === 201) {
         setStatus('success')
         setServerMessage(`"${response.data.recipe.name}" was added! Scroll up to find it in the list.`)
         onRecipeAdded(response.data.recipe)
         setFields(EMPTY_FORM)
+        clearImage()
         setErrors({})
       }
     } catch (err) {
@@ -222,6 +254,29 @@ function AddRecipeForm({ onRecipeAdded }) {
                   ))}
                 </select>
                 {errors.category && <span className="rf-err">{errors.category}</span>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="rf-image">
+                  Recipe Photo <span className="rf-optional">(optional, max 5 MB)</span>
+                </label>
+                <input
+                  id="rf-image"
+                  name="image"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  onChange={handleImageChange}
+                  className={errors.image ? 'rf-file rf-input--err' : 'rf-file'}
+                />
+                {errors.image && <span className="rf-err">{errors.image}</span>}
+                {imagePreview && (
+                  <div className="rf-image-preview">
+                    <img src={imagePreview} alt="Preview" />
+                    <button type="button" className="rf-image-remove" onClick={clearImage}>
+                      Remove
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 

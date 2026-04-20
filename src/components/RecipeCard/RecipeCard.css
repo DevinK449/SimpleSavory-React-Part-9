@@ -44,6 +44,52 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+.recipe-card-actions {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--transition), transform var(--transition);
+  pointer-events: none;
+}
+
+.recipe-card:hover .recipe-card-actions,
+.recipe-card:focus-within .recipe-card-actions {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.recipe-card-action {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: transform var(--transition), background var(--transition);
+}
+
+.recipe-card-action:hover {
+  transform: scale(1.08);
+}
+
+.recipe-card-action--edit:hover {
+  background: #eaf4ee;
+}
+
+.recipe-card-action--delete:hover {
+  background: #fdecec;
+}
+
 .recipe-card-body {
   padding: 20px;
 }
